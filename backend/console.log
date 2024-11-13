@@ -1,0 +1,15 @@
+app.get('/api/quotes', async (req, res) => {
+  console.log("Request received at /api/quotes");  // Log to confirm request is received
+  try {
+    const response = await fetch('https://inspirobot.me/api?generate=true');
+    const quoteImageUrl = await response.text();
+    const quoteData = {
+      text: 'Here is an inspiring quote!',
+      imageUrl: quoteImageUrl.trim(),
+    };
+    res.json(quoteData);
+  } catch (error) {
+    console.error('Error fetching quote:', error);
+    res.status(500).json({ message: 'Failed to fetch quote' });
+  }
+});
