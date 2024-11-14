@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Generator</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/generator.css">
+</head>
+<body>
+    <header>
+        <h1>Quote Generator</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="generator.html">Generate Quotes</a>
+            <a href="about.html">About</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Get Inspired</h2>
+        <button id="generateQuote" onclick="generateQuote()">Generate Quote</button>
+        <p id="quoteDisplay">Your quote will appear here.</p>
+        
+        <div id="addQuote">
+            <h3>Add a New Quote</h3>
+            <input type="text" id="newQuoteText" placeholder="Enter new quote" />
+            <input type="text" id="newQuoteAuthor" placeholder="Enter author" />
+            <button onclick="addQuote()">Add Quote</button>
+        </div>
+
+        <div id="updateQuote">
+            <h3>Update an Existing Quote</h3>
+            <input type="text" id="updateQuoteId" placeholder="Quote ID" />
+            <input type="text" id="updatedQuoteText" placeholder="Updated quote text" />
+            <input type="text" id="updatedQuoteAuthor" placeholder="Updated author" />
+            <button onclick="updateQuote()">Update Quote</button>
+        </div>
+
+        <div id="deleteQuote">
+            <h3>Delete a Quote</h3>
+            <input type="text" id="deleteQuoteId" placeholder="Quote ID to delete" />
+            <button onclick="deleteQuote()">Delete Quote</button>
+        </div>
+    </main>
+
+    <script>
+        async function generateQuote() {
+            try {
+                const response = await fetch('http://localhost:5000/api/quotes/random');
+                const data = await response.json();
+                document.getElementById('quoteDisplay').textContent = `${data.text} — ${data.author || "Unknown"}`;
+            } catch (error) {
+                console.error('Error fetching quote:', error);
+                document.getElementById('quoteDisplay').textContent = 'Oops! Something went wrong. Please try again later.';
+            }
+        }
+
+        async function addQuote() {
+            const text = document.getElementById('newQuoteText').value;
+            const author = document.getElementById('newQuoteAuthor').value;
+            try {
+                const response = await fetch('http://localhost:5000/api/quotes', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text, author }),
+                });
+                const data = await response.json();
+                alert(`New Quote Added: ${data.text}`);
+            } catch (error) {
+                console.error('Error adding quote:', error);
+                alert('Error adding quote.');
+            }
+        }
+
+        async function updateQuote() {
+            const id = document.getElementById('updateQuoteId').value;
+            const text = document.getElementById('updatedQuoteText').value;
+            const author = document.getElementById('updatedQuoteAuthor').value;
+            try {
+                const response = await fetch(`http://localhost:5000/api/quotes/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text, author }),
+                });
+                const data = await response.json();
+                alert(`Quote Updated: ${data.text}`);
+            } catch (error) {
+                console.error('Error updating quote:', error);
+                alert('Error updating quote.');
+            }
+        }
+
+        async function deleteQuote() {
+            const id = document.getElementById('deleteQuoteId').value;
+            try {
+                const response = await fetch(`http://localhost:5000/api/quotes/${id}`, {
+                    method: 'DELETE',
+                });
+                const data = await response.json();
+                alert(`Quote Deleted: ${data.text}`);
+            } catch (error) {
+                console.error('Error deleting quote:', error);
+                alert('Error deleting quote.');
+            }
+        }
+    </script>
+</body>
+</html>

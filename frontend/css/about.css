@@ -1,0 +1,39 @@
+/* about.css */
+h2 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    animation: fadeIn 1.5s ease;
+}
+
+p {
+    margin: 1rem auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    color: #444;
+    animation: fadeIn 2s ease;
+}
+
+header h1 {
+    animation: slideInFromLeft 1s ease-out;
+}
+
+nav a {
+    animation: fadeInLinks 2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInFromLeft {
+    from { opacity: 0; transform: translateX(-100%); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInLinks {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}

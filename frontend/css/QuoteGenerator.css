@@ -1,0 +1,57 @@
+.quote-generator {
+    text-align: center;
+    padding: 2rem;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .generate-button {
+    padding: 1rem 2rem;
+    background-color: #ff6584;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .generate-button:hover {
+    background-color: #ff517a;
+    transform: scale(1.05);
+  }
+  
+  .loading-text {
+    font-size: 1.5rem;
+    color: #ff6584;
+  }
+  
+  .error-message {
+    font-size: 1.5rem;
+    color: #ff0000;
+  }
+  
+  .quote-display {
+    margin-top: 2rem;
+  }
+  
+  .quote-text {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: #555;
+  }
+  
+  .quote-author {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    color: #333;
+  }
+  
+  .quote-image {
+    margin-top: 1rem;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
